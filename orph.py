@@ -1,3 +1,4 @@
+
 from numpy import array
 import requests
 import csv
@@ -21,15 +22,29 @@ for line in loopableArray:
     soup = BeautifulSoup(html_text, 'html.parser')
     print(count)
     if soup.find_all("button",{'disabled':'disabled'}) == empty:        
-        instockAlert.append(line[0],line[1])
+        instockAlert.append(line[0])
     else:        
-        noStock.append(line[0],line[1])
+        noStock.append(line[0])
     
     count = count+1
 
 print(instockAlert)
 print("out stock")
 print(noStock)
+
+with open('INSTOCK_OUTPUT.csv', mode = 'w') as INSTOCK:
+    instock_writer = csv.writer(INSTOCK,delimiter=',')
+    #for line in instockAlert:
+    instock_writer.writerow(instockAlert)
+
+with open('OUTSTOCK_OUTPUT.csv', mode = 'w') as OUTSTOCK:
+    outstock_writer = csv.writer(OUTSTOCK,delimiter=',')
+    #for line in noStock:
+    outstock_writer.writerow(noStock)
+
+print("/nDONE THANK YOU")
+
+
 
 #html_text = requests.get('https://contenderbicycles.com/collections/apparel/products/contender-pride-t-shirt').text
 #soup = BeautifulSoup(html_text, 'html.parser')
