@@ -22,9 +22,9 @@ for line in loopableArray:
     soup = BeautifulSoup(html_text, 'html.parser')
     print(count)
     if soup.find_all("button",{'disabled':'disabled'}) == empty:        
-        instockAlert.append(line[0])
+        instockAlert.append([line[1],line[0]])
     else:        
-        noStock.append(line[0])
+        noStock.append([line[1],line[0]])
     
     count = count+1
 
@@ -34,13 +34,13 @@ print(noStock)
 
 with open('INSTOCK_OUTPUT.csv', mode = 'w') as INSTOCK:
     instock_writer = csv.writer(INSTOCK,delimiter=',')
-    #for line in instockAlert:
-    instock_writer.writerow(instockAlert)
+    for line in instockAlert:
+        instock_writer.writerow(line)
 
 with open('OUTSTOCK_OUTPUT.csv', mode = 'w') as OUTSTOCK:
     outstock_writer = csv.writer(OUTSTOCK,delimiter=',')
-    #for line in noStock:
-    outstock_writer.writerow(noStock)
+    for line in noStock:
+        outstock_writer.writerow(line)
 
 print("/nDONE THANK YOU")
 
